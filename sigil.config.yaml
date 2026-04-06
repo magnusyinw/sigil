@@ -1,0 +1,43 @@
+# Sigil Configuration
+# Every answer has an address.
+# Docs: https://github.com/sigil-index/sigil/blob/main/docs/config.md
+
+llm:
+  provider: anthropic            # anthropic | openai | ollama | custom
+  model: claude-sonnet-4-6       # any instruction-following model
+  api_key: ${ANTHROPIC_API_KEY}  # reads from environment variable
+  base_url: ~                    # optional: for local/proxy endpoints
+
+  # OpenAI example:
+  # provider: openai
+  # model: gpt-4o
+  # api_key: ${OPENAI_API_KEY}
+
+  # Ollama (fully local, no API key):
+  # provider: ollama
+  # model: llama3.2
+  # base_url: http://localhost:11434
+
+indexing:
+  language: auto                 # auto | zh | en | ja | ...
+  anchor_min_chars: 7
+  anchor_max_chars: 15
+  confidence_threshold: 0.8
+  auto_backlink: true
+  max_chars: 12000               # max document chars per indexing call
+
+storage:
+  backend: sqlite                # sqlite | postgres (postgres coming in v1.1)
+  path: ./sigil.db
+
+interface:
+  mcp:
+    enabled: true
+    port: 3000
+  rest_api:
+    enabled: true
+    port: 3001
+
+logging:
+  level: info
+  audit_trail: true
